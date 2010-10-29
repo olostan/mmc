@@ -10,7 +10,7 @@ sub new_require {
   }
   $arg =~ s@::@/@sg;
   my $ext="";
-  $ext=".pm" unless $arg =~ /\.pm$/s;
+  $ext=".pm" unless $arg =~ /\.p[ml]$/s;
   return 1 if ($INC{"$arg$ext"});
   for my $dir (@INC) {
     my $file = "$dir/$arg$ext";

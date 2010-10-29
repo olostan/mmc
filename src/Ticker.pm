@@ -11,7 +11,7 @@ use vars qw($tc);
 sub new {
   no strict 'refs';
   my $class=shift;
-  my Ticker $self = bless [\%{"$class\::FIELDS"}], $class;
+  my Ticker $self = fields::new($class);
   $self->{interval}=shift;
   $self->{state}=0;
   $self;
@@ -81,7 +81,7 @@ use fields qw(ns);
 sub new {
   no strict 'refs';
   my $class=shift;
-  my Ticker2 $self = bless [\%{"$class\::FIELDS"}], $class;
+  my Ticker2 $self = fields::new($class);
   $self->{ns}=CL::gettime()+1;
   $self->init($self->{ns});
   $self;
