@@ -1,0 +1,9 @@
+#!/bin/sh
+
+arg="$1"; shift
+
+if [ "$arg" = "--run" ]; then
+  "$@"
+else
+  exit 1
+fi

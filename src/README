@@ -1,0 +1,47 @@
+MMC, the MUD client for UNIX
+
+Installing:
+  ./configure
+  make
+  make install
+  That should be enough in most cases, you may need to tweak configure
+  if you don't have perl in your path. Also i didnt test this thing
+  with anything but ncurses, so it may be incomatible with other
+  curses libraries.
+
+Client features:
+   -  aliases 
+   -  hotkeys 
+   -  triggers list ordered by priority 
+   -  grouping triggers by tags, each trigger can have its own list of tags 
+   -  perl regular expressions in trigger patterns 
+   -  hooks for defining custom actions which are executed at certain internal events 
+   -  advanced speedwalks 
+   -  backscroll buffer with spilt-screen, 2000 lines long by default 
+   -  tick counter 
+   -  MCCP support (Mud Client Compression Protocol) 
+   -  delayed/periodic commands 
+   -  status line 
+   -  command line editor with unlimited history buffer 
+   -  advanced completion in the command line editor 
+   -  perl5 is used as a scripting language, writing sophisticated triggers and aliases
+      is now simple and easy 
+
+Documentation:
+   -  README.txt (in russian) (availbale from the www page)
+   -  Sample setup file (comments in russian) (availbale from the www page)
+  Documentation is available separately from the www site.
+
+Authors:
+  Mike Matsnev (programming) 
+  Dmitry Rzhavin (documentation, beta testing) 
+
+WWW page:
+  http://haali.rt.ru/mmc/
+
+Copying:
+  Copyright (c) 2000,2001 Mike E. Matsnev and Dmitry Rzhavin. All rights
+  reserved.
+  This program is free software; you can redistribute it and/or modify it under
+  the same terms as Perl itself.                                 
+

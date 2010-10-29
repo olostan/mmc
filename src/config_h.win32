@@ -1,0 +1,6 @@
+/* Name of package */
+#define PACKAGE "mmc"
+
+/* Version number of package */
+#define VERSION "4.1"
+

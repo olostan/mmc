@@ -1,0 +1,82 @@
+CC=cl -nologo -Oxs -G5 -MD -I. -W3 -DWIN32 -DNDEBUG
+LD=cl -nologo -MD
+PD=c:\perl
+PP=$(PD)\lib
+PE=$(PD)\bin\perl.exe
+PLP=$(PD)\lib\CORE
+PCC=$(CC) -I$(PP)\CORE -DNO_STRICT -DPERL_MSVCRT_READFIX
+HDR=timeout.h socket.h Char.h config_h.win32 window.h output.h cmalloc.h misc.h window_priv.h config.h
+LIBS=zlib.lib ws2_32.lib kernel32.lib user32.lib gdi32.lib winmm.lib advapi32.lib comdlg32.lib
+PLIB=$(PLP)\perl56.lib
+
+all: mmc.exe
+
+config.h: config_h.win32
+	cmd /c copy /b /y config_h.win32 config.h
+
+b2c.exe: b2c.c
+	$(CC) -Feb2c.exe b2c.c zlib.lib
+
+CL.obj: CL.c $(HDR)
+	$(PCC) -c CL.c
+
+CL.c: CL.xs
+	$(PE) $(PP)/ExtUtils/xsubpp -typemap $(PP)/ExtUtils/typemap CL.xs > CL.c.tmp
+	cmd /c move /y CL.c.tmp CL.c
+
+xsinit.c:
+	$(PE) -MExtUtils::Embed -e xsinit -- -o xsinit.c CL DynaLoader
+
+main.obj: main.c $(HDR)
+	$(PCC) -c main.c
+
+perlmodules.obj: perlmodules.c
+	$(CC) -c perlmodules.c
+
+perlmodules.c:	RStream.pm DCommand.pm Ticker.pm Status.pm UAPI.pm \
+		CL.pm CMD.pm Conf.pm Ex.pm Keymap.pm LE.pm Main.pm  \
+		MUD.pm Parser.pm packmod.pl b2c.exe
+	$(PE) packmod.pl AutoLoader DynaLoader=DLWin32.pm Carp Carp::Heavy warnings::register warnings \
+		strict integer vars fields base locale Exporter Exporter::Heavy \
+		Symbol Text::ParseWords Ex CL Conf CMD LE Parser MUD Keymap Main \
+		RStream DCommand Ticker Status UAPI > perlmodules.c.tmp
+	cmd /c move /y perlmodules.c.tmp perlmodules.c
+
+socket.obj: socket.c $(HDR)
+	$(CC) -c socket.c
+
+timeout.obj: timeout.c $(HDR)
+	$(CC) -c timeout.c
+
+window.obj: window.c $(HDR)
+	$(CC) -c window.c
+
+misc.obj: misc.c $(HDR)
+	$(CC) -c misc.c
+
+cmalloc.obj: cmalloc.c $(HDR)
+	$(CC) -c cmalloc.c
+
+win32.obj: win32.c $(HDR)
+	$(CC) -c win32.c
+
+version.obj: version.c $(HDR)
+	$(CC) -c version.c
+
+xsinit.obj: xsinit.c
+	$(PCC) -c xsinit.c
+
+mmc.res: mmc.rc resource.h
+	rc -fommc.res mmc.rc
+
+mmc.exe: CL.obj main.obj perlmodules.obj socket.obj version.obj timeout.obj win32.obj cmalloc.obj misc.obj window.obj xsinit.obj mmc.res
+	$(LD) -Femmc.exe CL.obj main.obj perlmodules.obj socket.obj timeout.obj version.obj win32.obj cmalloc.obj misc.obj window.obj xsinit.obj mmc.res $(PLIB) $(LIBS) -link /subsystem:windows /opt:nowin98 /opt:ref /opt:icf
+
+clean:
+	-cmd /c del *.obj
+	-cmd /c del CL.c
+	-cmd /c del perlmodules.c
+	-cmd /c del xsinit.c
+	-cmd /c del mmc.exe
+	-cmd /c del b2c.exe
+	-cmd /c del *.tmp

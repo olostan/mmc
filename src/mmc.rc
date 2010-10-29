@@ -1,0 +1,25 @@
+#include "windows.h"
+#include "resource.h"
+
+IDD_COLORS DIALOG DISCARDABLE  0, 0, 214, 190
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Colors"
+FONT 9, "Tahoma"
+BEGIN
+    LISTBOX         IDC_COLORSLIST,5,5,125,160,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Change...",IDCCHANGE,150,100,50,14
+    GROUPBOX        "Color",IDC_STATIC,140,5,70,115
+    RTEXT           "Red:",IDC_STATIC,150,20,25,10
+    RTEXT           "Green:",IDC_STATIC,150,35,25,10
+    RTEXT           "Blue:",IDC_STATIC,150,50,25,10
+    LTEXT           "0",IDC_RED,180,20,25,10
+    LTEXT           "0",IDC_GREEN,180,35,25,10
+    LTEXT           "0",IDC_BLUE,180,50,25,10
+    CONTROL         "Color",IDC_COLOR,"Button",BS_OWNERDRAW |
+                    WS_DISABLED,150,70,50,20
+    PUSHBUTTON      "OK",IDOK,50,170,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,105,170,50,14
+    PUSHBUTTON      "Apply",IDAPPLY,160,170,50,14,WS_DISABLED
+END
+
