@@ -57,14 +57,14 @@ sub init_pipe {
 sub new {
     no strict 'refs';
     my $class=shift;
-    my CL::Socket $self = bless [\%{"$class\::FIELDS"}], $class;
+    my CL::Socket $self = fields::new($class);
     $self->init(@_);
 }
 
 sub new_pipe {
   no strict 'refs';
   my $class=shift;
-  my CL::Socket $self = bless [\%{"$class\::FIELDS"}], $class;
+  my CL::Socket $self = fields::new($class);
   $self->init_pipe(@_);
 }
 
@@ -120,7 +120,7 @@ use Ex;
 sub new {
     no strict 'refs';
     my $class=shift;
-    my CL::Timer $self = bless [\%{"$class\::FIELDS"}], $class;
+    my CL::Timer $self = fields::new($class);
 
     $self->{_id}=-1;
     $self->init(@_);

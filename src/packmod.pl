@@ -26,7 +26,7 @@ for my $m (@ARGV) {
 	my $mod=$m;
 	$mod =~ s/::/\//g;
 	my $ext="";
-	$ext=".pm" unless $mod =~ /\.pm$/s;
+	$ext=".pm" unless $mod =~ /\.p[ml]$/s;
 	my $f;
 	if ($mod =~ /^(.*)=(.*)$/) {
 		$mod=$1;

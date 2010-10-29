@@ -27,7 +27,7 @@ sub init {
 sub new {
     no strict 'refs';
     my $class=shift;
-    my DCommand $self = bless [\%{"$class\::FIELDS"}], $class;
+    my DCommand $self = fields::new($class);
 
     $self->init(@_);
 
