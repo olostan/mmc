@@ -3,3 +3,10 @@ config.h
 config.log
 config.status
 stamp-h1
+*.o
+CL.c
+b2c
+perlmodules.c
+stamp*
+xsinit.c
+mmc
