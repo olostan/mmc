@@ -406,7 +406,7 @@ sub line($$) {
 sub prompt($$) {
   my MUD $self=shift;
   my $prompt=shift;
-  
+
   $prompt=CL::parse_colors(::call_hook('prompt',CL::unparse_colors($prompt)));
   return if (defined($lp) && $lp eq $prompt);
   if (!$lpd) {
@@ -418,6 +418,7 @@ sub prompt($$) {
   $lp=$prompt;
   $lpd=$lpl=0;
   LE::setprompt($lp);
+  CL::redraw();
 }
 
 sub lognl() {
