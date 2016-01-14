@@ -382,7 +382,7 @@ sub load_aliases {
 
 sub save_aliases {
   no strict 'refs';
-  join("\n",(map { join("\t",$_,${"U::$_"}[0]) } sort { $a cmp $b } grep { defined(&{"U::$_"}) && defined(@{"U::$_"}) && !$U::_nosave_aliases{$_} } keys %U::),keys %U::_nosave_aliases);
+  join("\n",(map { join("\t",$_,${"U::$_"}[0]) } sort { $a cmp $b } grep { defined(&{"U::$_"}) && defined(${"U::$_"}) && !$U::_nosave_aliases{$_} } keys %U::),keys %U::_nosave_aliases);
 }
 
 sub load_vars {
